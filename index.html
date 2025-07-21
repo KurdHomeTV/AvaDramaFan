@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>وێبسایتی تایبەتی من | My Personal Website</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    /* === Reset & base styles === */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #222;
+      transition: background-color 0.4s, color 0.4s;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    body.dark {
+      background: #121212;
+      color: #eee;
+    }
+    a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    /* === Container === */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    /* === Logo and hero image === */
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #0077cc;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: default;
+    }
+    .logo i {
+      color: #0099ff;
+      font-size: 2.4rem;
+      animation: pulse 3s infinite alternate;
+    }
+    @keyframes pulse {
+      0% {
+        opacity: 0.6;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    .hero-image {
+      flex: 1 1 300px;
+      margin-left: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      transition: transform 0.5s ease;
+    }
+    .hero-image:hover {
+      transform: scale(1.03);
+    }
+    /* === Language dropdown === */
+    .language-switcher {
+      position: relative;
+      font-size: 1rem;
+      user-select: none;
+    }
+    .lang-btn {
+      background: #fff;
+      border: 1.5px solid #0077cc;
+      border-radius: 8px;
+      padding: 6px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #0077cc;
+      font-weight: 600;
+      min-width: 140px;
+      transition: background-color 0.3s ease;
+    }
+    .lang-btn:hover {
+      background-color: #e6f0ff;
+    }
+    .lang-btn img {
+      width: 26px;
+      height: 18px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+    .lang-btn i {
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+    }
+    .lang-btn.active i {
+      transform: rotate(180deg);
+    }
+    .lang-list {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      background: #fff;
+      border: 1.5px solid #0077cc;
+      border-radius: 8px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 160px;
+      list-style: none;
+      padding: 4px 0;
+      margin: 0;
+      z-index: 999;
+      display: none;
+    }
+    .lang-list.show {
+      display: block;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    .lang-list li {
+      padding: 8px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: #0077cc;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+    .lang-list li:hover,
+    .lang-list li:focus {
+      background-color: #e6f0ff;
+      outline: none;
+    }
+    .lang-list li img {
+      width: 24px;
+      height: 16px;
+      border-radius: 3px;
+      object-fit: cover;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* === Dark mode toggle === */
+    #mode-toggle {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.6rem;
+      color: #0077cc;
+      padding: 6px 10px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    #mode-toggle:hover {
+      background-color: #e6f0ff;
+    }
+    body.dark #mode-toggle {
+      color: #00bfff;
+    }
+    /* === Sections === */
+    section {
+      margin-bottom: 40px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      transition: background-color 0.4s, color 0.4s;
+    }
+    body.dark section {
+      background: #1e1e1e;
+      color: #eee;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #0077cc;
+      transition: color 0.4s;
+    }
+    body.dark section h2 {
+      color: #00bfff;
+    }
+    /* === Services grid === */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap: 20px;
+    }
+    .service-card {
+      background: #f0f8ff;
+      padding: 18px 15px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: background-color 0.4s, box-shadow 0.3s ease;
+      cursor: default;
+    }
+    body.dark .service-card {
+      background: #222831;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+    }
+    .service-card:hover {
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+    }
+    .service-icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+      color: #0077cc;
+      transition: color 0.4s;
+    }
+    body.dark .service-icon {
+      color: #00bfff;
+    }
+    .service-title {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .service-desc {
+      font-size: 1rem;
+      color: #444;
+      transition: color 0.4s;
+    }
+    body.dark .service-desc {
+      color: #bbb;
+    }
+    /* === Gallery grid === */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 16px;
+    }
+    .gallery-item {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+    }
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px;
+      background: rgba(0, 119, 204, 0.85);
+      color: #fff;
+      font-weight: 600;
+      text-align: center;
+      font-size: 1.1rem;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      user-select: none;
+    }
+    /* === Contact form === */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 480px;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      padding: 10px 14px;
+      font-size: 1rem;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      border-color: #0077cc;
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 119, 204, 0.4);
+    }
+    body.dark input[type="text"],
+    body.dark input[type="email"],
+    body.dark textarea {
+      background: #2b2b2b;
+      border-color: #555;
+      color: #eee;
+    }
+    body.dark input[type="text"]:focus,
+    body.dark input[type="email"]:focus,
+    body.dark textarea:focus {
+      border-color: #00bfff;
+      box-shadow: 0 0 8px rgba(0, 191, 255, 0.7);
+    }
+    button[type="submit"] {
+      background-color: #0077cc;
+      color: white;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: fit-content;
+      align-self: flex-start;
+    }
+    button[type="submit"]:hover {
+      background-color: #005fa3;
+    }
+    body.dark button[type="submit"] {
+      background-color: #00bfff;
+      color: #121212;
+    }
+    body.dark button[type="submit"]:hover {
+      background-color: #0099e6;
+    }
+    /* === Social links === */
+    .social-links {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+      font-size: 1.8rem;
+    }
+    .social-links a {
+      color: #0077cc;
+      transition: color 0.3s ease;
+    }
+    .social-links a:hover {
+      color: #005fa3;
+    }
+    body.dark .social-links a {
+      color: #00bfff;
+    }
+    body.dark .social-links a:hover {
+      color: #0099e6;
+    }
+    /* === Footer === */
+    footer {
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.9rem;
+      background: #eaeaea;
+      color: #333;
+      user-select: none;
+      border-top: 1px solid #ccc;
+      transition: background-color 0.4s, color 0.4s;
+    }
+    body.dark footer {
+      background: #121212;
+      color: #eee;
+      border-top: 1px solid #333;
+    }
+
+    /* === Responsive adjustments === */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .hero-image {
+        margin-left: 0;
+        width: 100%;
+      }
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="container" role="banner">
+    <div class="logo" aria-label="Logo">
+      <i class="fas fa-star"></i> وێبسایتی تایبەتی من
+    </div>
+
+    <img
+      src="https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=600&q=80"
+      alt="Hero Image"
+      class="hero-image"
+      loading="lazy"
+    />
+
+    <div style="display:flex; gap:12px; align-items:center;">
+      <!-- Language switcher -->
+      <div class="language-switcher" id="language-switcher">
+        <button
+          class="lang-btn"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          id="lang-btn"
+          aria-label="Select language"
+          type="button"
+        >
+          <img
+            src="https://flagcdn.com/w40/iq.png"
+            alt="Flag of Kurdistan"
+            class="flag-icon"
+            width="26"
+            height="18"
+          />
+          <span>کوردی</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <ul
+          class="lang-list"
+          role="listbox"
+          tabindex="-1"
+          aria-labelledby="lang-btn"
+          id="lang-list"
+        >
+          <li
+            role="option"
+            data-lang="ku"
+            tabindex="0"
+            aria-selected="true"
+            class="active"
+          >
+            <img
+              src="https://flagcdn.com/w20/iq.png"
+              alt="Flag of Kurdistan"
+              width="24"
+              height="16"
+            />
+            کوردی / Kurdish
+          </li>
+          <li role="option" data-lang="en" tabindex="0" aria-selected="false">
+            <img
+              src="https://flagcdn.com/w20/us.png"
+              alt="Flag of USA"
+              width="24"
+              height="16"
+            />
+            English / ئینگلیزی
+          </li>
+        </ul>
+      </div>
+
+      <!-- Dark mode toggle -->
+      <button
+        id="mode-toggle"
+        aria-label="Toggle dark mode"
+        title="لایت / دارک مود"
+      >
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <!-- About Me Section -->
+    <section id="about">
+      <h2 data-i18n="about-title">دەربارەی خۆم</h2>
+      <p data-i18n="about-desc">
+        ناوم شارەزایە لە زانیاری تایبەتی کە ناوازە و نەکراوە بۆ خزمەتگوزارییەکانم.
+        خۆشمەوە لە کارکردن بە شێوەی نوێ و خەیاڵی زۆر بە جۆری تایبەتمەندییەکانم.
+      </p>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+      <h2 data-i18n="services-title">خزمەتگوزاریەکانم</h2>
+      <div class="services-grid">
+        <article class="service-card" tabindex="0" aria-label="دیزاین و گرافیک">
+          <i class="fas fa-paint-brush service-icon" aria-hidden="true"></i>
+          <h3 class="service-title" data-i18n="service-design">دیزاین و گرافیک</h3>
+          <p class="service-desc" data-i18n="service-design-desc">
+            دیزاینە ناوازە و نوێ و تەکنیکی تایبەتی بۆ براندینگ و گرافیک و بەرهەمەکان.
+          </p>
+        </article>
+
+        <article class="service-card" tabindex="0" aria-label="وێبسایت دروستکردن">
+          <i class="fas fa-code service-icon" aria-hidden="true"></i>
+          <h3 class="service-title" data-i18n="service-webdev">وێبسایت دروستکردن</h3>
+          <p class="service-desc" data-i18n="service-webdev-desc">
+            وێبسایتە نوێکان و زۆر ناوازە بەم شێوەیەی بەکارهێنانی HTML، CSS، JS.
+          </p>
+        </article>
+
+        <article class="service-card" tabindex="0" aria-label="ئەنیماشن و کاراکترسازی">
+          <i class="fas fa-film service-icon" aria-hidden="true"></i>
+          <h3 class="service-title" data-i18n="service-animation">ئەنیماشن و کاراکترسازی</h3>
+          <p class="service-desc" data-i18n="service-animation-desc">
+            زۆر تایبەتمەندی ئەنیماشنەکان و کاری جیاواز لە کاراکترسازی بۆ پرۆژەکان.
+          </p>
+        </article>
+
+        <article class="service-card" tabindex="0" aria-label="کۆنتێنت و نەڤیسین">
+          <i class="fas fa-pen-nib service-icon" aria-hidden="true"></i>
+          <h3 class="service-title" data-i18n="service-content">کۆنتێنت و نەڤیسین</h3>
+          <p class="service-desc" data-i18n="service-content-desc">
+            دروستکردنی کۆنتێنتە ناوازەکان بۆ وێبسایت و سۆشیاڵ میدیا.
+          </p>
+        </article>
+
+        <article class="service-card" tabindex="0" aria-label="SEO و مارکێتینگ">
+          <i class="fas fa-search-dollar service-icon" aria-hidden="true"></i>
+          <h3 class="service-title" data-i18n="service-seo">SEO و مارکێتینگ</h3>
+          <p class="service-desc" data-i18n="service-seo-desc">
+            تایبەتمەندی SEO و مارکێتینگ بۆ گەشەپێدانی پرۆژەکان و گەڕان.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+      <h2 data-i18n="gallery-title">گالێری</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item" tabindex="0" aria-label="دیزاین نمونه 1">
+          <img
+            src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80"
+            alt="Design Sample 1"
+            loading="lazy"
+          />
+          <div class="gallery-caption" data-i18n="gallery-sample1">دیزاین نمونه 1</div>
+        </div>
+        <div class="gallery-item" tabindex="0" aria-label="دیزاین نمونه 2">
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80"
+            alt="Design Sample 2"
+            loading="lazy"
+          />
+          <div class="gallery-caption" data-i18n="gallery-sample2">دیزاین نمونه 2</div>
+        </div>
+        <div class="gallery-item" tabindex="0" aria-label="دیزاین نمونه 3">
+          <img
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80"
+            alt="Design Sample 3"
+            loading="lazy"
+          />
+          <div class="gallery-caption" data-i18n="gallery-sample3">دیزاین نمونه 3</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2 data-i18n="contact-title">پەیوەندیم پێوە بکە</h2>
+      <form id="contact-form" aria-label="Contact form">
+        <label for="name" data-i18n="contact-name-label">ناو:</label>
+        <input type="text" id="name" name="name" required placeholder="ناوت بنوسە" />
+
+        <label for="email" data-i18n="contact-email-label">ئیمەیڵ:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="ئیمەیڵت بنوسە"
+        />
+
+        <label for="message" data-i18n="contact-message-label">پەیام:</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          required
+          placeholder="پەیامت بنوسە"
+        ></textarea>
+
+        <button type="submit" data-i18n="contact-submit">ناردن</button>
+      </form>
+
+      <div class="social-links" aria-label="Social media links">
+        <a
+          href="mailto:your.email@example.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Email"
+          ><i class="fas fa-envelope"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/yourprofile"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+        <a
+          href="https://github.com/yourprofile"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          ><i class="fab fa-github"></i
+        ></a>
+        <a
+          href="https://twitter.com/yourprofile"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Twitter"
+          ><i class="fab fa-twitter"></i
+        ></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 وێبسایتی تایبەتی من | All rights reserved
+  </footer>
+
+  <script>
+    // Language switcher logic
+    const langBtn = document.getElementById("lang-btn");
+    const langList = document.getElementById("lang-list");
+    const langItems = langList.querySelectorAll("li");
+    const body = document.body;
+
+    // Text translations
+    const translations = {
+      ku: {
+        "about-title": "دەربارەی خۆم",
+        "about-desc":
+          "ناوم شارەزایە لە زانیاری تایبەتی کە ناوازە و نەکراوە بۆ خزمەتگوزارییەکانم. خۆشمەوە لە کارکردن بە شێوەی نوێ و خەیاڵی زۆر بە جۆری تایبەتمەندییەکانم.",
+        "services-title": "خزمەتگوزاریەکانم",
+        "service-design": "دیزاین و گرافیک",
+        "service-design-desc":
+          "دیزاینە ناوازە و نوێ و تەکنیکی تایبەتی بۆ براندینگ و گرافیک و بەرهەمەکان.",
+        "service-webdev": "وێبسایت دروستکردن",
+        "service-webdev-desc":
+          "وێبسایتە نوێکان و زۆر ناوازە بەم شێوەیەی بەکارهێنانی HTML، CSS، JS.",
+        "service-animation": "ئەنیماشن و کاراکترسازی",
+        "service-animation-desc":
+          "زۆر تایبەتمەندی ئەنیماشنەکان و کاری جیاواز لە کاراکترسازی بۆ پرۆژەکان.",
+        "service-content": "کۆنتێنت و نەڤیسین",
+        "service-content-desc":
+          "دروستکردنی کۆنتێنتە ناوازەکان بۆ وێبسایت و سۆشیاڵ میدیا.",
+        "service-seo": "SEO و مارکێتینگ",
+        "service-seo-desc":
+          "تایبەتمەندی SEO و مارکێتینگ بۆ گەشەپێدانی پرۆژەکان و گەڕان.",
+        "gallery-title": "گالێری",
+        "gallery-sample1": "دیزاین نمونه 1",
+        "gallery-sample2": "دیزاین نمونه 2",
+        "gallery-sample3": "دیزاین نمونه 3",
+        "contact-title": "پەیوەندیم پێوە بکە",
+        "contact-name-label": "ناو:",
+        "contact-email-label": "ئیمەیڵ:",
+        "contact-message-label": "پەیام:",
+        "contact-submit": "ناردن"
+      },
+      en: {
+        "about-title": "About Me",
+        "about-desc":
+          "My name is Sharezay, a specialist in exclusive and private information for my services. I enjoy working creatively and imaginatively with my unique skills.",
+        "services-title": "My Services",
+        "service-design": "Design & Graphics",
+        "service-design-desc":
+          "Unique, modern, and technical design for branding, graphics, and products.",
+        "service-webdev": "Website Development",
+        "service-webdev-desc":
+          "Modern and unique websites using HTML, CSS, and JS.",
+        "service-animation": "Animation & Character Design",
+        "service-animation-desc":
+          "Specialized animations and diverse work in character design for projects.",
+        "service-content": "Content & Writing",
+        "service-content-desc":
+          "Creating unique content for websites and social media.",
+        "service-seo": "SEO & Marketing",
+        "service-seo-desc":
+          "SEO and marketing specialization for project growth and outreach.",
+        "gallery-title": "Gallery",
+        "gallery-sample1": "Design Sample 1",
+        "gallery-sample2": "Design Sample 2",
+        "gallery-sample3": "Design Sample 3",
+        "contact-title": "Contact Me",
+        "contact-name-label": "Name:",
+        "contact-email-label": "Email:",
+        "contact-message-label": "Message:",
+        "contact-submit": "Send"
+      }
+    };
+
+    // Toggle language list visibility
+    langBtn.addEventListener("click", () => {
+      langList.classList.toggle("show");
+      langBtn.setAttribute(
+        "aria-expanded",
+        langList.classList.contains("show") ? "true" : "false"
+      );
+    });
+
+    // Change language on selection
+    langItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        // Remove active class from all
+        langItems.forEach((i) => i.classList.remove("active"));
+        // Add active class to clicked
+        item.classList.add("active");
+        // Change button text and flag
+        const lang = item.getAttribute("data-lang");
+        const flagSrc = item.querySelector("img").src;
+        langBtn.querySelector("img").src = flagSrc;
+        langBtn.querySelector("span").textContent = lang === "ku" ? "کوردی" : "English";
+        langList.classList.remove("show");
+        langBtn.setAttribute("aria-expanded", "false");
+        // Update text content
+        Object.keys(translations[lang]).forEach((key) => {
+          const el = document.querySelector(`[data-i18n="${key}"]`);
+          if (el) el.textContent = translations[lang][key];
+        });
+      });
+    });
+
+    // Dark mode toggle
+    const modeToggle = document.getElementById("mode-toggle");
+    modeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark-mode");
+      // Toggle icon between moon and sun
+      const icon = modeToggle.querySelector("i");
+      if (body.classList.contains("dark-mode")) {
+        icon.classList.remove("fa-moon");
+        icon.classList.add("fa-sun");
+      } else {
+        icon.classList.remove("fa-sun");
+        icon.classList.add("fa-moon");
+      }
+    });
+
+    // Contact form submission (example only)
+    const contactForm = document.getElementById("contact-form");
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("پەیام ناردرا! / Message sent!");
+      contactForm.reset();
+    });
+  </script>
+</body>
+</html>
+
+
+Sure! Here's a simple, modern, bilingual (Kurdish-English) personal portfolio webpage template with dark mode toggle and a language switcher, styled with CSS and some JS for interactivity:
+
+---
+
+```html
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>وێبسایتی تایبەتی من | My Portfolio</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --clr-bg-light: #fff;
+      --clr-text-light: #222;
+      --clr-bg-dark: #121212;
+      --clr-text-dark: #eee;
+      --clr-primary: #4a90e2;
+      --transition: 0.3s ease;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background-color: var(--clr-bg-light);
+      color: var(--clr-text-light);
+      transition: background-color var(--transition), color var(--transition);
+      line-height: 1.6;
+      padding-bottom: 50px;
+    }
+    body.dark-mode {
+      background-color: var(--clr-bg-dark);
+      color: var(--clr-text-dark);
+    }
+    header {
+      background-color: var(--clr-primary);
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+    #lang-btn, #mode-toggle {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    #lang-btn img {
+      width: 26px;
+      height: 18px;
+      border-radius: 3px;
+    }
+    #lang-list {
+      position: absolute;
+      margin-top: 0.3rem;
+      background: var(--clr-primary);
+      border-radius: 4px;
+      display: none;
+      list-style: none;
+      padding: 0.2rem 0;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      z-index: 100;
+    }
+    #lang-list.show {
+      display: block;
+    }
+    #lang-list li {
+      padding: 0.3rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: white;
+      white-space: nowrap;
+    }
+    #lang-list li:hover,
+    #lang-list li.active {
+      background-color: #357abd;
+    }
+
+    main.container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    h2 {
+      border-bottom: 2px solid var(--clr-primary);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    /* Services grid */
+    .services-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    }
+    .service-card {
+      background: var(--clr-primary);
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+      cursor: default;
+    }
+    body.dark-mode .service-card {
+      background: #2c65b7;
+    }
+    .service-card:hover,
+    .service-card:focus {
+      background-color: #357abd;
+      outline: none;
+    }
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+    }
+    .gallery-item {
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      background: #eee;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      vertical-align: middle;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover img,
+    .gallery-item:focus img {
+      transform: scale(1.05);
+      outline: none;
+    }
+    .gallery-caption {
+      text-align: center;
+      padding: 0.5rem 0;
+      font-weight: 600;
+    }
+    /* Contact form */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      max-width: 450px;
+    }
+    label {
+      font-weight: 600;
+    }
+    input, textarea {
+      padding: 0.5rem;
+      border: 2px solid var(--clr-primary);
+      border-radius: 6px;
+      font-family: var(--font-family);
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+    }
+    input:focus, textarea:focus {
+      border-color: #1e5bb8;
+      outline: none;
+    }
+    button[type="submit"] {
+      background-color: var(--clr-primary);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover,
+    button[type="submit"]:focus {
+      background-color: #357abd;
+      outline: none;
+    }
+    /* Social links */
+    .social-links {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+    }
+    .social-links a {
+      color: var(--clr-primary);
+      font-size: 1.6rem;
+      transition: color 0.3s ease;
+    }
+    .social-links a:hover,
+    .social-links a:focus {
+      color: #357abd;
+      outline: none;
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    body.dark-mode footer {
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 data-i18n="header-title">وێبسایتی تایبەتی من</h1>
+    <div style="position:relative;">
+      <button id="lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Switch language">
+        <img src="https://flagcdn.com/w40/iq.png" alt="Flag of Kurdistan" />
+        <span>کوردی</span>
+        <i class="fas fa-chevron-down" style="font-size:0.7rem;"></i>
+      </button>
+      <ul id="lang-list" role="listbox" tabindex="-1" aria-label="Language selector">
+        <li role="option" data-lang="ku" aria-selected="true" class="active">
+          <img src="https://flagcdn.com/w20/iq.png" alt="Flag of Kurdistan" />
+          کوردی / Kurdish
+        </li>
+        <li role="option" data-lang="en" aria-selected="false">
+          <img src="https://flagcdn.com/w20/us.png" alt="Flag of USA" />
+          English / ئینگلیزی
+        </li>
+      </ul>
+    </div>
+    <button id="mode-toggle" aria-label="Toggle dark mode" title="لایت / دارک مود">
+      <i class="fas fa-moon"></i>
+    </button>
+  </header>
+
+  <main class="container" role="main">
+    <section id="about">
+      <h2 data-i18n="about-title">دەربارەی خۆم</h2>
+      <p data-i18n="about-desc">
+        ناوم شارەزایە لە زانیاری تایبەتی کە ناوازە و نەکراوە بۆ خزمەتگوزارییەکانم.
+        خۆشمەوە لە کارکردن بە شێوەی نوێ و خەیاڵی زۆر بە جۆری تایبەتمەندییەکانم.
+      </p>
+    </section>
+
+    <section id="services">
+      <h2 data-i18n="services-title">خزمەتگوزاریەکانم</h2>
+      <div class="services-grid">
+        <article class="service-card" tabindex="0" aria-label="دیزاین و گرافیک">
+          <i class="fas fa-paint-brush service-icon" aria-hidden="true"></i>
+          <h3 class="service-title" data-i18n="service-design">دیزاین و گرافیک</h3>
+          <p class="service-desc" data-i18n="service-design-desc">
+            دیزاینە ناوازە و نوێ و تەکنیکی تایبەتی بۆ براندینگ و گرافیک و بەرهەمەکان.
+          </p>
+        </article>
+        <article class="service-card" tabindex="0" aria-label="وێبسایت دروستکردن">
+          <i class="fas fa-code service-icon" aria-hidden="true"></i>
+          <h3 class="service-title" data-i18n="service-webdev">وێبسایت دروستکردن</h3>
+          <p class="service-desc" data-i18n="service-webdev-desc">
+            وێبسایتە نوێکان و زۆر ناوازە بەم شێوەیەی بەکارهێنانی HTML، CSS، JS.
+          </p>
+        </article>
+        <article class="service-card" tabindex="0" aria-label="ئەنیماشن و کاراکترسازی">
+          <i class="fas fa-film service-icon" aria-hidden="true"></i>
+          <h3 class="service-title" data-i18n="service-animation">ئەنیماشن و کاراکترسازی</h3>
+          <p class="service-desc" data-i18n="service-animation-desc">
+            زۆر تایبەتمەندی ئەنیماشنەکان و کاری جیاواز لە کاراکترسازی بۆ پرۆژەکان.
+          </p>
+        </article>
+        <article class="service-card" tabindex="0" aria-label="کۆنتێنت و نەڤیسین">
+          <i class="fas fa-pen-nib service-icon" aria-hidden="true"></i>
+          <h3 class="service-title" data-i18n="service-content">کۆنتێنت و نەڤیسین</h3>
+          <p class="service-desc" data-i18n="service-content-desc">
+            دروستکردنی کۆنتێنتە ناوازەکان بۆ وێبسایت و سۆشیاڵ میدیا.
+          </p>
+        </article>
+        <article class="service-card" tabindex="0" aria-label="SEO و مارکێتینگ">
+          <i class="fas fa-search-dollar service-icon" aria-hidden="true"></i>
+          <h3 class="service-title" data-i18n="service-seo">SEO و مارکێتینگ</h3>
+          <p class="service-desc" data-i18n="service-seo-desc">
+            تایبەتمەندی SEO و مارکێتینگ بۆ گەشەپێدانی پرۆژەکان و گەڕان.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <h2 data-i18n="gallery-title">گالێری</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item" tabindex="0" aria-label="دیزاین نمونه 1">
+          <img
+            src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80"
+            alt="Design Sample 1"
+            loading="lazy"
+          />
+          <div class="gallery-caption" data-i18n="gallery-sample1">دیزاین نمونه 1</div>
+        </div>
+        <div class="gallery-item" tabindex="0" aria-label="دیزاین نمونه 2">
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80"
+            alt="Design Sample 2"
+            loading="lazy"
+          />
+          <div class="gallery-caption" data-i18n="gallery-sample2">دیزاین نمونه 2</div>
+        </div>
+        <div class="gallery-item" tabindex="0" aria-label="دیزاین نمونه 3">
+          <img
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80"
+            alt="Design Sample 3"
+            loading="lazy"
+          />
+          <div class="gallery-caption" data-i18n="gallery-sample3">دیزاین نمونه 3</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 data-i18n="contact-title">پەیوەندیم پێوە بکە</h2>
+      <form id="contact-form" aria-label="Contact form">
+        <label for="name" data-i18n="contact-name-label">ناو:</label>
+        <input type="text" id="name" name="name" required placeholder="ناوت بنوسە" />
+
+        <label for="email" data-i18n="contact-email-label">ئیمەیڵ:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="ئیمەیڵت بنوسە"
+        />
+
+        <label for="message" data-i18n="contact-message-label">پەیام:</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          required
+          placeholder="پەیامت بنوسە"
+        ></textarea>
+
+        <button type="submit" data-i18n="contact-submit">ناردن</button>
+      </form>
+
+      <div class="social-links" aria-label="Social media links">
+        <a
+          href="mailto:your.email@example.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Email"
+          ><i class="fas fa-envelope"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/yourprofile"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+        <a
+          href="https://github.com/yourprofile"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          ><i class="fab fa-github"></i
+        ></a>
+        <a
+          href="https://twitter.com/yourprofile"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Twitter"
+          ><i class="fab fa-twitter"></i
+        ></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 وێبسایتی تایبەتی من | All rights reserved
+  </footer>
+
+  <script>
+    // Language switcher logic
+    const langBtn = document.getElementById("lang-btn");
+    const langList = document.getElementById("lang-list");
+    const langItems = langList.querySelectorAll("li");
+    const body = document.body;
+
+    // Translations dictionary
+    const translations = {
+      ku: {
+        "header-title": "وێبسایتی تایبەتی من",
+        "about-title": "دەربارەی خۆم",
+        "about-desc":
+          "ناوم شارەزایە لە زانیاری تایبەتی کە ناوازە و نەکراوە بۆ خزمەتگوزارییەکانم. خۆشمەوە لە کارکردن بە شێوەی نوێ و خەیاڵی زۆر بە جۆری تایبەتمەندییەکانم.",
+        "services-title": "خزمەتگوزاریەکانم",
+        "service-design": "دیزاین و گرافیک",
+        "service-design-desc":
+          "دیزاینە ناوازە و نوێ و تەکنیکی تایبەتی بۆ براندینگ و گرافیک و بەرهەمەکان.",
+        "service-webdev": "وێبسایت دروستکردن",
+        "service-webdev-desc":
+          "وێبسایتە نوێکان و زۆر ناوازە بەم شێوەیەی بەکارهێنانی HTML، CSS، JS.",
+        "service-animation": "ئەنیماشن و کاراکترسازی",
+        "service-animation-desc":
+          "زۆر تایبەتمەندی ئەنیماشنەکان و کاری جیاواز لە کاراکترسازی بۆ پرۆژەکان.",
+        "service-content": "کۆنتێنت و نەڤیسین",
+        "service-content-desc":
+          "دروستکردنی کۆنتێنتە ناوازەکان بۆ وێبسایت و سۆشیاڵ میدیا.",
+        "service-seo": "SEO و مارکێتینگ",
+        "service-seo-desc":
+          "تایبەتمەندی SEO و مارکێتینگ بۆ گەشەپێدانی پرۆژەکان و گەڕان.",
+        "gallery-title": "گالێری",
+        "gallery-sample1": "دیزاین نمونه 1",
+        "gallery-sample2": "دیزاین نمونه 2",
+        "gallery-sample3": "دیزاین نمونه 3",
+        "contact-title": "پەیوەندیم پێوە بکە",
+        "contact-name-label": "ناو:",
+        "contact-email-label": "ئیمەیڵ:",
+        "contact-message-label": "پەیام:",
+        "contact-submit": "ناردن"
+      },
+      en: {
+        "header-title": "My Portfolio",
+        "about-title": "About Me",
+        "about-desc":
+          "My name is Sharezay, a specialist in exclusive and private information for my services. I enjoy working creatively and imaginatively with my unique skills.",
+        "services-title": "My Services",
+        "service-design": "Design & Graphics",
+        "service-design-desc":
+          "Unique, modern, and technical design for branding, graphics, and products.",
+        "service-webdev": "Website Development",
+        "service-webdev-desc":
+          "Modern and unique websites using HTML, CSS, and JS.",
+        "service-animation": "Animation & Character Design",
+        "service-animation-desc":
+          "Specialized animations and diverse work in character design for projects.",
+        "service-content": "Content & Writing",
+        "service-content-desc":
+          "Creating unique content for websites and social media.",
+        "service-seo": "SEO & Marketing",
+        "service-seo-desc":
+          "SEO and marketing specialization for project growth and outreach.",
+        "gallery-title": "Gallery",
+        "gallery-sample1": "Design Sample 1",
+        "gallery-sample2": "Design Sample 2",
+        "gallery-sample3": "Design Sample 3",
+        "contact-title": "Contact Me",
+        "contact-name-label": "Name:",
+        "contact-email-label": "Email:",
+        "contact-message-label": "Message:",
+        "contact-submit": "Send"
+      }
+    };
+
+    // Toggle language dropdown visibility
+    langBtn.addEventListener("click", () => {
+      langList.classList.toggle("show");
+      langBtn.setAttribute(
+        "aria-expanded",
+        langList.classList.contains("show") ? "true" : "false"
+      );
+    });
+
+    // Change language on selection
+    langItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        // Remove active from all
+        langItems.forEach((i) => {
+          i.classList.remove("active");
+          i.setAttribute("aria-selected", "false");
+        });
+        // Add active to clicked
+        item.classList.add("active");
+        item.setAttribute("aria-selected", "true");
+
+        // Change button flag and label
+        const lang = item.getAttribute("data-lang");
+        const flagSrc = item.querySelector("img").src;
+        langBtn.querySelector("img").src = flagSrc;
+        langBtn.querySelector("span").textContent = lang === "ku" ? "کوردی" : "English";
+
+        // Close dropdown
+        langList.classList.remove("show");
+        langBtn.setAttribute("aria-expanded", "false");
+
+        // Update direction
+        if (lang === "ku") {
+          document.documentElement.lang = "ku";
+          document.documentElement.dir = "rtl";
+        } else {
+          document.documentElement.lang = "en";
+          document.documentElement.dir = "ltr";
+        }
+
+        // Update text content
+        Object.keys(translations[lang]).forEach((key) => {
+          const el = document.querySelector(`[data-i18n="${key}"]`);
+          if (el) el.textContent = translations[lang][key];
+        });
+      });
+    });
+
+    // Dark mode toggle
+    const modeToggle = document.getElementById("mode-toggle");
+    modeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark-mode");
+      const icon = modeToggle.querySelector("i");
+      if (body.classList.contains("dark-mode")) {
+        icon.classList.remove("fa-moon");
+        icon.classList.add("fa-sun");
+      } else {
+        icon.classList.remove("fa-sun");
+        icon.classList.add("fa-moon");
+      }
+    });
+
+    // Contact form submission (demo)
+    const contactForm = document.getElementById("contact-form");
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert(
+        body.classList.contains("dark-mode")
+          ? "پەیام ناردرا! (Message sent!)"
+          : "Message sent!"
+      );
+      contactForm.reset();
+    });
+
+    // Close language dropdown if click outside
+    document.addEventListener("click", (e) => {
+      if (!langBtn.contains(e.target) && !langList.contains(e.target)) {
+        langList.classList.remove("show");
+        langBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+  </script>
+</body>
+</html>
