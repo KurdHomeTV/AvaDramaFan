@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ku">
+
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv=" content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" href="https://assets.ava.news/logo/ava-logo.svg" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://assets.ava.news/logo/ava-logo.svg" />
+    <link rel="apple-touch-icon" sizes="72x72" href="https://assets.ava.news/logo/ava-logo.svg" />
+    <link rel="apple-touch-icon" sizes="114x114" href="https://assets.ava.news/logo/ava-logo.svg" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="format-detection" content="telegram@avadramafan">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>AvaDramaFan | ئاڤادرامافان</title>
+    <meta name="description" content="ئاڤادراما فان بۆ بینەربوونی دراما- فیلم" />
+
+    <meta name=" keywords " content=" ئاڤادرامافان بۆ بینەربوونی دراما-فیلم،" />
+
+    <link rel="preconnect " href="https://fonts.googleapis.com ">
+    <link rel="preconnect " href="https://fonts.gstatic.com " crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap " rel="stylesheet ">
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            background: linear-gradient(135deg, #007aff 0%, #da62f8 100%);
+            color: #222;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 48px 20px 60px;
+        }
+        
+        header {
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 48px;
+            animation: fadeInDown 0.8s ease forwards;
+        }
+        
+        header h1 {
+            font-size: 3.6rem;
+            margin-bottom: 12px;
+            color: #1B2733;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-shadow: 0 3px 8px rgba(27, 39, 51, 0.18);
+        }
+        
+        h5 {
+            font-size: 1rem;
+            color: #34495edd;
+            line-height: 1.55;
+            font-weight: 600;
+            max-width: 500px;
+            margin: 0 auto;
+            letter-spacing: 0.5px;
+            text-align: right;
+        }
+        
+        header p {
+            font-size: 1.35rem;
+            color: #34495edd;
+            line-height: 1.55;
+            font-weight: 600;
+            max-width: 500px;
+            margin: 0 auto;
+            letter-spacing: 0.5px;
+        }
+        
+        button#openModal {
+            background: linear-gradient(45deg, #007aff, #e91bb5);
+            color: white;
+            border: none;
+            padding: 18px 52px;
+            font-size: 1.25rem;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 12px 30px rgba(190, 197, 202, 0.55);
+            transition: all 0.35s cubic-bezier(.25, .8, .25, 1);
+            font-weight: 700;
+            user-select: none;
+            animation: pulse 3s ease-in-out infinite;
+            filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.1));
+        }
+        
+        button#openModal:hover {
+            background: linear-gradient(45deg, #9db1c77e, #e91bb5);
+            box-shadow: 0 18px 36px rgba(32, 112, 175, 0.7);
+            transform: scale(1.07);
+        }
+        /* Modal overlay */
+        
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .modal-content {
+            background: #fefefe;
+            padding: 36px 48px;
+            border-radius: 28px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.15);
+            transform: scale(0.75);
+            opacity: 0;
+            animation: zoomIn 0.35s forwards cubic-bezier(.4, 0, .2, 1);
+            position: relative;
+            user-select: text;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #e74c3c;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s ease;
+            user-select: none;
+            line-height: 36px;
+            text-align: center;
+        }
+        
+        .close-btn:hover {
+            background: #c0392b;
+        }
+        
+        .modal-content h2 {
+            margin: 0 0 24px;
+            font-weight: 900;
+            color: #2c3e50;
+            font-size: 2rem;
+            letter-spacing: 0.9px;
+            text-align: center;
+            user-select: text;
+        }
+        
+        input,
+        textarea {
+            width: 100%;
+            border-radius: 16px;
+            border: 2px solid #d1d8e0;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #3d3d3d;
+            transition: all 0.3s ease;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            resize: none;
+        }
+        
+        input::placeholder,
+        textarea::placeholder {
+            color: #9aa2ac;
+            font-weight: 500;
+            user-select: none;
+        }
+        
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 12px #3498dbaa;
+            background: #f0f7ff;
+        }
+        
+        button#sendMessage {
+            width: 100%;
+            background: linear-gradient(45deg, #007aff, #e91bb5);
+            border: none;
+            padding: 18px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 14px 28px rgba(39, 174, 96, 0.6);
+            transition: all 0.3s ease;
+            user-select: none;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+        
+        button#sendMessage:hover {
+            background: linear-gradient(45deg, #9db1c77e, #e91bb5);
+            box-shadow: 0 18px 34px rgba(34, 156, 75, 0.8);
+            transform: scale(1.06);
+        }
+        /* Success popup */
+        
+        #successPopup {
+            position: fixed;
+            top: 22px;
+            right: 22px;
+            background: #27ae60;
+            color: white;
+            padding: 18px 30px;
+            font-weight: 700;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.7);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.45s ease;
+            z-index: 11000;
+            font-size: 17px;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.8px;
+            filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.2));
+        }
+        
+        #successPopup svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+            flex-shrink: 0;
+        }
+        
+        #successPopup.active {
+            opacity: 1;
+            pointer-events: auto;
+            animation: pulseSuccess 2.2s ease forwards;
+        }
+        /* Animations */
+        
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.75);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px)
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                box-shadow: 0 0 18px rgba(41, 128, 185, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 36px rgba(41, 128, 185, 1);
+            }
+        }
+        
+        @keyframes pulseSuccess {
+            0% {
+                box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7);
+                opacity: 0;
+            }
+            50% {
+                box-shadow: 0 0 25px 15px rgba(39, 174, 96, 0.85);
+                opacity: 1;
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(39, 174, 96, 0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <img src="https://assets.ava.news/logo/ava-logo.svg ">
+        </img>
+        <h1>ئاڤادراما فان
+
+            <p>ئاڤادراما فان بەمزووانە، دەمانەوێت باشترین خزمەتگوزاریتان پێشکەش بکەین و ببینە میوانی دڵی هەموو بینەرەکانمان لە تەواوی کوردستاندا ، بۆ بینەربوونی بەرهەمەکانمان(دراما-فیلم، ...) ،وە لەڕابردوو و داهاتودا هەوڵدەدەین باشترین تان پێشکەش بکەین لەرێگەی
+                تێلیگرامەکان و ماڵپەری ئاڤادراما فان. </p>
+    </header>
+
+    <h5>بۆ هەر پرسیار و پێشنیارێک دەتوانن بە کلیک کردن لە ناردنی پەیام پەیوەندیمان پێوە بکەن </h5>
+
+    <br>
+    <br>
+
+    <button id="openModal ">ناردنی پەیام</button>
+
+    <div id="messageModal " class="modal " role="dialog " aria-modal="true " aria-labelledby="modalTitle " tabindex="-1 ">
+        <div class="modal-content ">
+            <button class="close-btn " id="closeModal " aria-label="داخستن ">&times;</button>
+            <h3 id="modalTitle "> ناردنی پەیام</h3>
+
+            <h5 style="color: red; text-align: right; "> بەڕێز، لە کاتی پڕکردنەوەی پەیامی ئەلیکترۆنی بۆ هەر خانەیەک بە دروستی پڕی بکەرەوە
+            </h5>
+
+            <br>
+
+            <input type="text " id="name " placeholdڤبer="ناوی تۆ " required autocomplete="name " />
+            <input type="email " id="email " placeholder="ئیمەیڵ " required autocomplete="email " />
+            <input type="text " id="subject " placeholder="بابەت " required />
+            <textarea id="message " placeholder="پەیامەکەت بنووسە " rows="5 " required></textarea>
+            <button id="sendMessage " type="submit ">ناردن</button>
+        </div>
+    </div>
+
+    <br>
+
+
+    <script>
+        const openModalBtn = document.getElementById('openModal');
+
+        const modal = document.getElementById('messageModal');
+
+        const closeModalBtn = document.getElementById('closeModal');
+
+        const sendBtn = document.getElementById('sendMessage');
+        const successPopup = document.getElementById('successPopup');
+
+        openModalBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+
+
+
+            document.getElementById('name').focus();
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        window.addEventListener('click', e => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        sendBtn.addEventListener('click', () => {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !subject || !message) {
+                alert('تکایە خانەکان بە وەڵامی دروست و بەبێ بەتاڵ دایبنێ');
+                return;
+            }
+
+            const newMsg = {
+                name,
+                email,
+                subject,
+                message,
+                date: new Date().toLocaleDateString(),
+                time: new Date().toLocaleTimeString()
+            };
+
+            // Save to localStorage as JSON array
+            let msgs = JSON.parse(localStorage.getItem('messages') || '[]');
+            msgs.push(newMsg);
+            localStorage.setItem('messages', JSON.stringify(msgs));
+
+            // Clear inputs
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('subject').value = '';
+            document.getElementById('message').value = '';
+
+            modal.classList.remove('active');
+
+            // Show success popup
+            successPopup.classList.add('active');
+            setTimeout(() => {
+                successPopup.classList.remove('active');
+                window.location.href = ''; // 
+            }, 2200);
+        });
+    </script>
+
+</body>
+
+</html>
