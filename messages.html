@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+  <meta charset="UTF-8">
+  <title>پەیامەکان</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+   font-family: 'IBM Plex Sans Arabic', sans-serif;
+      background: #f3f3f3;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .message {
+      background: white;
+      margin: 20px auto;
+      padding: 15px;
+      border-left: 5px solid #0077cc;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      transition: 0.3s;
+    }
+    .message:hover {
+      transform: scale(1.02);
+    }
+    .message h3 {
+      margin: 0;
+      color: #0077cc;
+    }
+    .message p {
+      margin: 5px 0;
+      color: #444;
+    }
+    .message time {
+      color: #999;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📩 پەیامە نێردراوەکان</h1>
+<div id="messagesContainer"></div>
+
+<script>
+  const messages = JSON.parse(localStorage.getItem("messages")) || [];
+
+  const container = document.getElementById("messagesContainer");
+
+  if (messages.length === 0) {
+    container.innerHTML = "<p style='text-align:center;color:gray;'>هیچ پەیامێک نەدۆزرایەوە</p>";
+  } else {
+    messages.forEach(msg => {
+      const div = document.createElement("div");
+      div.className = "message";
+      div.innerHTML = `
+        <h3>${msg.subject}</h3>
+        <p><strong>👤</strong> ${msg.name} | <strong>📧</strong> ${msg.email}</p>
+        <p>${msg.message}</p>
+        <time>📅 ${msg.datetime}</time>
+      `;
+      container.appendChild(div);
+    });
+  }
+</script>
+
+</body>
+</html>
