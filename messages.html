@@ -59,7 +59,7 @@
 </head>
 <body>
 
-<h1>📩 پەیامە نێردراوەکان</h1>
+<h1> پەیامەکان </h1>
 <div id="messagesContainer"></div>
 
 <script>
@@ -68,16 +68,16 @@
   const container = document.getElementById("messagesContainer");
 
   if (messages.length === 0) {
-    container.innerHTML = "<p style='text-align:center;color:gray;'>هیچ پەیامێک نەدۆزرایەوە</p>";
+    container.innerHTML = "<p style='text-align:center;color:gray;'>هیچ پەیامێک نەنێردراوە!</p>";
   } else {
     messages.forEach(msg => {
       const div = document.createElement("div");
       div.className = "message";
       div.innerHTML = `
         <h3>${msg.subject}</h3>
-        <p><strong>👤</strong> ${msg.name} | <strong>📧</strong> ${msg.email}</p>
+        <p><strong>بەڕێز</strong> ${msg.name} | <strong>ئیمەیڵ</strong> ${msg.email}</p>
         <p>${msg.message}</p>
-        <time>📅 ${msg.datetime}</time>
+        <time>بەروار-کات ${msg.datetime}</time>
       `;
       container.appendChild(div);
     });
